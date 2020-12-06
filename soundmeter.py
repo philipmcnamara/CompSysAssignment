@@ -1,10 +1,15 @@
-
+from sense_hat import SenseHat
 import sys
 import usb.core
 import requests
 import time
 from urllib.request import urlopen
 import  json
+
+sense = SenseHat()
+sense.clear()
+green = (0, 255, 0)
+red = (255,0,0)
 
 dev = usb.core.find()
 
@@ -32,3 +37,9 @@ while True:
     time.sleep(10)
     msg="{'dB':'"+str(dB)+"'}"
     print (msg)
+    if dB >=60.5:
+     sense.show_message("Too Loud", text_colour = red)
+    else:
+     sense.show_message("Fine!", text_colour = green)
+
+
