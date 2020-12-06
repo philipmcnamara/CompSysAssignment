@@ -14,3 +14,10 @@ The USb on the Pi has to be set up, this is done with:
  sudo apt-get install python-pip
  sudo pip install pyusb
  sudo apt-get install python-usb python3-usb
+
+
+SenseHat is Added for Visual Display
+
+Import in with:
+
+from sense_hat import SenseHat
