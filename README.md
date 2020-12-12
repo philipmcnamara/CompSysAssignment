@@ -21,3 +21,11 @@ SenseHat is Added for Visual Display
 Import in with:
 
 from sense_hat import SenseHat
+
+The soundTest.py file is the main code file. It runnes connected to the storeFileFB.py which pushes the dats in json format out to Fiirebase.
+
+The soundTest.py file also send the data out to thingspeak were I download it and biuld my PowerBi Dashboards with. This is the SoundMeterTrend.pbix file.
+
+I have used this setup to monitor my childs work environemnt to ID the loudest times for attention to De-sensatice the area.
+
+The Pi flashes messages if the volume gets too loud. 
