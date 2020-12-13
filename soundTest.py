@@ -9,6 +9,8 @@ import mysql.connector
 from mysql.connector import Error
 import datetime
 import storeFileFB
+import pythonArray
+
 
 datetime_object = datetime.datetime.now()
 
@@ -53,6 +55,19 @@ print (dev)
 
 print (hex(dev.idVendor)+','+hex(dev.idProduct))
 
+myArray = pythonArray.lastFive
+
+i = 0
+while i < len(myArray):
+ time.sleep(1)
+ ret = dev.ctrl_transfer(0xC0,4,0,0,200)
+ dB = round((ret[0]+((ret[1]&3)*256))*0.1+30,2)
+    # for ele in myArray:
+ myArray[i] = dB
+ i += 1
+ print(i)
+print(myArray)
+
 def writeData(dB):
     # Sending the data to thingspeak in the query string
     conn = urlopen(baseURL + '&field1=%s' % (dB))
@@ -63,14 +78,16 @@ while True:
     dB = round((ret[0]+((ret[1]&3)*256))*0.1+30,2)
     writeData(dB)
     currentTime = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    time.sleep(10)
+    time.sleep(1)
     msg="{'dB':'"+str(dB)+"'}"
     print (msg)
     storeFileFB.push_db(dB, currentTime)
-    if dB >=60.5:
-     sense.show_message("Too Loud", text_colour = red)
-    else:
-     sense.show_message("Fine!", text_colour = green)
+
+    myArray.pop(0)
+    myArray.append(dB)
+    print(myArray)
+    avg = sum(myArray)/len(myArray)
+    pythonArray.avgVol(avg)
 
 
 def insert_reading(datetime_object, reading):

@@ -24,11 +24,11 @@ def store_file(fileLoc):
 
 def push_db(fileLoc, time):
 
-    filename = os.path.basename(fileLoc)
+    filename = float(fileLoc)
 
-    # Push file reference to image in Realtime DB
+    # Push db data to FireBase  Realtime DB
     home_ref.push({
-    'image': filename,
+    'dB Reading': filename,
     'timestamp': time
 }
 )
