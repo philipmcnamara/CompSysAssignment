@@ -67,6 +67,7 @@ while i < len(myArray):
  i += 1
  print(i)
 print(myArray)
+q = 0
 
 def writeData(dB):
     # Sending the data to thingspeak in the query string
@@ -87,8 +88,15 @@ while True:
     myArray.append(dB)
     print(myArray)
     avg = sum(myArray)/len(myArray)
-    pythonArray.avgVol(avg)
 
+
+    if q > 4:
+     pythonArray.avgVol(avg)
+     q = 0
+    else:
+     q += 1
+
+    print(q)
 
 def insert_reading(datetime_object, reading):
     query = "INSERT INTO mainData(datetime_object,reading) " \
